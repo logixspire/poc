@@ -1,0 +1,93 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title>Add Appointment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-select [(ngModel)]="appointment.patientId" placeholder="Select Patient" (ionChange)="onPatientChange()">
+      <ion-select-option *ngFor="let patient of patients" [value]="patient._id">
+        {{ patient.firstName | titlecase}} {{ patient.lastName | titlecase}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Doctor</ion-label>
+    <ion-input [(ngModel)]="appointment.doctor"></ion-input>
+  </ion-item>
+
+  <!-- <ion-popover [isOpen]="showDatePopover" [event]="datePopoverEvent" (didDismiss)="showDatePopover = false">
+    <ng-template>
+      <ion-datetime presentation="date" prefer-wheel="false" show-default-buttons="true"
+        [(ngModel)]="appointment.dateOfBirth" (ionChange)="showDatePopover = false"></ion-datetime>
+    </ng-template>
+  </ion-popover> -->
+
+  <ion-item>
+  <ion-label position="stacked">Appointment Date & Time</ion-label>
+  <ion-datetime
+    presentation="date-time"
+    [(ngModel)]="appointment.date"
+    hour-cycle="h23"
+    prefer-wheel="true"
+    show-default-buttons="true"
+  ></ion-datetime>
+</ion-item>
+
+
+  <!-- <ion-item button (click)="openDatePicker($event)">
+    <ion-label>Appointment Date</ion-label>
+    <ion-text>{{ appointment.dateOfBirth | date: 'yyyy-MM-dd' }}</ion-text>
+  </ion-item>
+
+  <ion-popover [isOpen]="showDatePopover" [event]="datePopoverEvent" (didDismiss)="showDatePopover = false">
+    <ng-template>
+      <ion-datetime presentation="date" prefer-wheel="false" show-default-buttons="true"
+        [(ngModel)]="appointment.dateOfBirth" (ionChange)="showDatePopover = false"></ion-datetime>
+    </ng-template>
+  </ion-popover> -->
+
+  <!-- <ion-item>
+    <ion-label>Appointment Date</ion-label>
+    <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="appointment.date"
+      presentation="date-time"></ion-datetime>
+  </ion-item> -->
+
+  <ion-item>
+    <ion-label position="floating">Notes</ion-label>
+    <ion-textarea [(ngModel)]="appointment.notes"></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" (click)="addAppointment()">Add Appointment</ion-button>
+  <ion-button expand="block" (click)="resetForm()">Reset Form</ion-button>
+
+
+  <!-- Divider -->
+  <ion-item-divider class="ion-margin-top" color="light">
+    <ion-label>Patient Appointments</ion-label>
+  </ion-item-divider>
+
+  <!-- Appointments List -->
+  <ion-list *ngIf="filteredAppointments.length > 0">
+    <ion-item-sliding *ngFor="let a of filteredAppointments">
+      <ion-item>
+        <ion-label>
+          <h2><strong>Patient:</strong> {{ getPatientName(a.patientId) }}</h2>
+          <h3><strong>Doctor:</strong> {{a.doctor }}</h3>
+          <p>{{ a.date | date: 'yyyy-MM-dd HH:mm' }}</p>
+          <p>{{ a.notes }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+      <ion-item-option color="danger" expandable  (click)="deleteAppointment(a)">Delete</ion-item-option>
+    </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-text color="medium" *ngIf="filteredAppointments.length === 0 && appointment.patientId">
+    No appointments found for this patient.
+  </ion-text>
+
+</ion-content>

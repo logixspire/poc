@@ -1,0 +1,115 @@
+  // body {
+  //      width: 230mm;
+  //      height: auto;
+  //      margin: 0 auto;
+  //      overflow: auto;
+  //      padding: 0;
+  //      font-size: 12pt;
+  //      background: rgb(204,204,204); 
+  //    }
+  //    * {
+  //      box-sizing: border-box;
+  //      -moz-box-sizing: border-box;
+  //        font-family: "Noto Sans", sans-serif;
+  //    }
+  //    .main-page {
+  //      width: 210mm;
+  //      min-height: 297mm;
+  //      margin: 10mm auto;
+  //      background: white;
+  //      box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  //    }
+  //    .sub-page {
+  //      padding: 1cm;
+  //      height: auto;
+  //    }
+  //    div{
+  //       font-size: 16px;
+  //    }
+  //    @page {
+  //      size: A4;
+  //      margin: 0;
+  //    }
+  //    @media print {
+  //      html, body {
+  //    	width: 210mm;
+  //    	height: auto;        
+  //      }
+  //      .main-page {
+  //    	margin: 0;
+  //    	border: initial;
+  //    	border-radius: initial;
+  //    	width: initial;
+  //    	min-height: initial;
+  //    	box-shadow: initial;
+  //    	background: initial;
+  //    	page-break-after: always;
+  //      }
+  //    }
+
+
+
+  
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
+    font: 12pt "Tahoma";
+}
+
+* {
+    box-sizing: border-box;
+    color: black !important;
+       font-family: "Noto Sans", sans-serif;
+}
+
+.page {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: .5cm .8cm;
+    margin: 1cm auto;
+    border: 1px #D3D3D3 solid;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.block_layout {
+    display: grid;
+    grid-template-columns: 75% 25%;
+}
+
+@media print {
+    .page {
+        page-break-after: always; /* Ensure each page ends after .page */
+        margin: 0;
+        border: initial;
+        box-shadow: initial;
+    }
+
+    tr {
+        page-break-inside: avoid; /* Ensure rows do not break */
+    }
+
+    .record-info, .qr-code {
+        page-break-inside: avoid; /* Avoid breaking record inside page */
+    }
+
+    .header_new {
+        display: none !important;
+    }
+    
+    /* Additional custom styles for print */
+}
+
+td,
+th {
+    font-weight: 500;
+    font-size: 11px;
+    border: 1px solid black;
+}
+
+div {
+    font-size: 14px;
+}

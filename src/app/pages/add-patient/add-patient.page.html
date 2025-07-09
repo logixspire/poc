@@ -1,0 +1,90 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title>Nurse Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Add New Patient</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list lines="inset">
+
+        <ion-item>
+          <ion-label position="floating">First Name</ion-label>
+          <ion-input [(ngModel)]="patientService.newpatient.firstName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input [(ngModel)]="patientService.newpatient.lastName"></ion-input>
+        </ion-item>
+
+        <ion-item button (click)="openDatePicker($event)">
+          <ion-label>Date of Birth</ion-label>
+          <ion-text>{{ patientService.newpatient.dateOfBirth | date: 'yyyy-MM-dd' }}</ion-text>
+        </ion-item>
+
+        <ion-popover [isOpen]="showDatePopover" [event]="datePopoverEvent" (didDismiss)="showDatePopover = false">
+          <ng-template>
+            <ion-datetime presentation="date" prefer-wheel="false" show-default-buttons="true"
+              [(ngModel)]="patientService.newpatient.dateOfBirth" (ionChange)="showDatePopover = false"></ion-datetime>
+          </ng-template>
+        </ion-popover>
+
+        <ion-item>
+          <!-- <ion-label position="floating">Gender</ion-label> -->
+          <!-- <ion-input [(ngModel)]="patientService.newpatient.gender"></ion-input> -->
+          <ion-select [(ngModel)]="patientService.newpatient.gender" placeholder="Select Gender">
+            <ion-select-option *ngFor="let g of genders" [value]="g">
+              {{ g | titlecase }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Phone Number</ion-label>
+          <ion-input [(ngModel)]="patientService.newpatient.phoneNumber" type="tel"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="patientService.newpatient.email" type="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Address</ion-label>
+          <ion-input [(ngModel)]="patientService.newpatient.address"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Emergency Contact Name</ion-label>
+          <ion-input [(ngModel)]="patientService.newpatient.emergencyContactName"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Emergency Contact Phone</ion-label>
+          <ion-input [(ngModel)]="patientService.newpatient.emergencyContactPhone" type="tel"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <!-- <ion-label position="floating">Blood Group</ion-label> -->
+          <!-- <ion-input [(ngModel)]="patientService.newpatient.bloodGroup"></ion-input> -->
+          <ion-select [(ngModel)]="patientService.newpatient.bloodGroup" placeholder="Select Blood Group">
+            <ion-select-option *ngFor="let bg of bloodGroups" [value]="bg">
+              {{ bg }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-list>
+
+      <ion-button expand="block" shape="round" color="primary" (click)="savePatients()">
+        Save Patient
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

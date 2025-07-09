@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ReMeDi-POC</string>
+    <string name="title_activity_main">ReMeDi-POC</string>
+    <string name="package_name">com.logixspire.remedi</string>
+    <string name="custom_url_scheme">com.logixspire.remedi</string>
+</resources>

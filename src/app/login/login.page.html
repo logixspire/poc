@@ -1,0 +1,15 @@
+<div class="app">
+  <!-- Login Screen -->
+  <div class="login-container active">
+    <div class="login-box">
+      <h1 class="logo">ReMeDi</h1>
+      <div class="input-group">
+        <input type="text" id="login-username" placeholder="Username" required [(ngModel)]="objLoginService.pmUser.username" />
+      </div>
+      <div class="input-group">
+        <input type="password" id="login-password" placeholder="Password" required [(ngModel)]="objLoginService.pmUser.password" />
+      </div>
+      <button id="login-btn" (click)="auth()">Sign In</button>
+    </div>
+  </div>
+  </div>

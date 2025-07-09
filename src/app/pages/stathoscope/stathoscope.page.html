@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Stethoscope Monitor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label>Patient</ion-label>
+    <ion-select [(ngModel)]="patient_id" (ionChange)="onPatientChange($event)" placeholder="Select Patient">
+      <ion-select-option *ngFor="let patient of patients" [value]="patient._id">
+        {{ patient.firstName | titlecase }} {{ patient.lastName | titlecase }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button expand="block" (click)="startStethoscope()">Start Stethoscope</ion-button>
+
+  <canvas #stethoChartCanvas height="200"></canvas>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Previous Readings</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let reading of readingHistory" (click)="loadReadingToChart(reading)">
+      {{ reading.timestamp | date:'short' }}
+    </ion-item>
+  </ion-list>
+
+</ion-content>

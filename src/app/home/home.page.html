@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Reminders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let reminder of reminders">
+      <ion-label>
+        <h2>{{ reminder.title }}</h2>
+        <p>{{ reminder.description }}</p>
+        <p>{{ reminder.remindAt | date:'short' }}</p>
+      </ion-label>
+      <ion-button fill="clear" color="primary" (click)="editReminder(reminder)">Edit</ion-button>
+      <ion-button fill="clear" color="danger" (click)="delete(reminder)">Delete</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-input [(ngModel)]="newReminder.title" placeholder="Title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input [(ngModel)]="newReminder.description" placeholder="Description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-datetime [(ngModel)]="newReminder.remindAt" placeholder="Reminder Time"></ion-datetime>
+  </ion-item>
+
+  <ion-button expand="full" (click)="saveReminder()">Save Reminder</ion-button>
+</ion-content>

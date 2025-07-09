@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>SPO2 Readings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Patient Dropdown -->
+  <!-- <ion-item>
+    <ion-label>Patient</ion-label>
+    <ion-select [(ngModel)]="patient_id" (ionChange)="getSpo2Readings(patient_id)">
+      <ion-select-option *ngFor="let patient of patients" [value]="patient._id">
+        {{ patient.first_name }} {{ patient.last_name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item> -->
+   <ion-item>
+    <ion-select [(ngModel)]="patient_id" placeholder="Select Patient" >
+      <ion-select-option *ngFor="let patient of patients" [value]="patient._id">
+        {{ patient.firstName | titlecase}} {{ patient.lastName | titlecase}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Live SPO2 and Pulse -->
+  <ion-grid class="ion-margin-top">
+    <ion-row>
+      <ion-col size="6">
+        <ion-card color="light">
+          <ion-card-header><ion-card-title>SPO2 (%)</ion-card-title></ion-card-header>
+          <ion-card-content><h2 class="ion-text-center">{{ spo2 ?? '--' }}</h2></ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card color="light">
+          <ion-card-header><ion-card-title>Pulse (BPM)</ion-card-title></ion-card-header>
+          <ion-card-content><h2 class="ion-text-center">{{ pulseRate ?? '--' }}</h2></ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Button to Start Scan -->
+  <ion-button expand="block" color="primary" class="ion-margin-top" (click)="startScan()">
+    Get New SPO2 Reading
+  </ion-button>
+
+  <!-- Live Graph -->
+  <ion-card>
+    <ion-card-header><ion-card-title>Live SPO2 Graph</ion-card-title></ion-card-header>
+    <ion-card-content>
+      <canvas #spo2ChartCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Previous Readings List -->
+  <ion-card *ngIf="readingHistory.length > 0">
+    <ion-card-header><ion-card-title>Previous Readings</ion-card-title></ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let reading of readingHistory" button (click)="loadReadingToChart(reading)">
+          <ion-label>
+            <h3>SPO2: {{ reading.spo2 }}%, BPM: {{ reading.pulseRate }}</h3>
+            <p>{{ reading.timestamp | date: 'short' }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

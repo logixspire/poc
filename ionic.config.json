@@ -1,0 +1,7 @@
+{
+  "name": "ReMeDi-POC",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

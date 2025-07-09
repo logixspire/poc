@@ -1,0 +1,114 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title>Nurse Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="dashboard-content">
+
+  <ion-button expand="block" class="ion-margin" (click)="addPatient()">ADD NEW PATIENT</ion-button>
+
+  <!-- Web View -->
+  <ng-container *ngIf="isWeb; else mobileView">
+    <ion-grid>
+      <ion-row class="ion-text-center ion-hide-sm-down">
+        <ion-col size="1"><strong>#</strong></ion-col>
+        <ion-col size="2"><strong>Patient Details</strong></ion-col>
+        <ion-col size="2"><strong>Gender</strong></ion-col>
+        <ion-col size="2"><strong>Blood Group</strong></ion-col>
+        <ion-col size="2"><strong>Emergency Contact</strong></ion-col>
+        <ion-col size="3"><strong>Actions</strong></ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let patient of patientService.patients; let i = index" class="ion-text-center patient-row">
+        <ion-col size="1">{{ i + 1 }}</ion-col>
+        <ion-col size="2">
+          {{ patient.firstName }} {{ patient.lastName }}<br>
+          {{ patient.address }}<br>
+          Phone: {{ patient.phoneNumber }}<br>
+          Email: {{ patient.email }}
+        </ion-col>
+        <ion-col size="2">{{ patient.gender }}</ion-col>
+        <ion-col size="2">{{ patient.bloodGroup }}</ion-col>
+        <ion-col size="2">
+          {{ patient.emergencyContactName }}<br>
+          {{ patient.emergencyContactPhone }}
+        </ion-col>
+        <ion-col size="3">
+          <div class="vital-buttons" style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">
+            <ion-button size="small" fill="outline" color="primary" (click)="openStethoscope(1)">
+              Stethoscope
+            </ion-button>
+            <ion-button size="small" fill="outline" color="success" (click)="openSPO2(1)">
+              SPO2
+            </ion-button>
+            <ion-button size="small" fill="outline" color="tertiary" (click)="openAppointment(patient)">
+              Appointment
+            </ion-button>
+            <ion-button size="small" fill="solid" color="medium" (click)="editPatient(patient)">
+              Edit
+            </ion-button>
+            <ion-button size="small" fill="solid" color="danger" (click)="deletePatient(patient)">
+              Delete
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+  <!-- Mobile View -->
+  <ng-template #mobileView>
+    <ion-list>
+      <ion-card *ngFor="let patient of patientService.patients; let i = index" class="ion-margin">
+        <ion-card-header>
+          <ion-card-subtitle>Patient #{{ i + 1 }}</ion-card-subtitle>
+          <ion-card-title>{{ patient.firstName }} {{ patient.lastName }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p><strong>Address:</strong> {{ patient.address }}</p>
+          <p><strong>Phone:</strong> {{ patient.phoneNumber }}</p>
+          <p><strong>Email:</strong> {{ patient.email }}</p>
+          <p><strong>Gender:</strong> {{ patient.gender }}</p>
+          <p><strong>DOB:</strong> {{ patient.dateOfBirth | date: 'yyyy-MM-dd' }}</p>
+          <p><strong>Blood Group:</strong> {{ patient.bloodGroup }}</p>
+          <p><strong>Emergency Contact:</strong><br>
+             {{ patient.emergencyContactName }} ({{ patient.emergencyContactPhone }})
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+            <ion-button size="small" expand="block" fill="outline" color="primary" (click)="openStethoscope(1)">
+              Stethoscope
+            </ion-button>
+            <ion-button size="small" expand="block" fill="outline" color="success" (click)="openSPO2(1)">
+              SPO2
+            </ion-button>
+            <ion-button size="small" expand="block" fill="outline" color="tertiary" (click)="openAppointment(patient)">
+              Appointment
+            </ion-button>
+            <ion-button size="small" expand="block" fill="outline" color="tertiary" (click)="openIcare()">
+              launch-icare
+            </ion-button>
+            
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
+            <ion-button size="small" expand="block" fill="solid" color="medium" (click)="editPatient(patient)">
+              Edit
+            </ion-button>
+            <ion-button size="small" expand="block" fill="solid" color="danger" (click)="deletePatient(patient)">
+              Delete
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+
+
+  </ng-template>
+  <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
+  <ion-button size="small" expand="block" fill="solid" color="danger" (click)="logout()" style="width: 10%;">
+      Logout
+  </ion-button>
+  </div>
+</ion-content>
